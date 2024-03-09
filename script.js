@@ -1,81 +1,78 @@
-document.addEventListener('DOMContentLoaded', loadCities);
-
-function loadCities() {
+document.addEventListener('DOMContentLoaded', () => {
+    loadCities();
+    document.getElementById('addCityBtn').addEventListener('click', addCityFromInput);
+  });
+  
+  function loadCities() {
     const cities = JSON.parse(localStorage.getItem('cities')) || [];
     const cityList = document.getElementById('cityList');
     cityList.innerHTML = '';
     cities.forEach(city => {
-        cityList.appendChild(createCityElement(city));
+      cityList.appendChild(createCityElement(city));
     });
-}
-
-function addCity() {
-    const cityName = prompt("Enter city name:");
-    if (!cityName) return;
+  }
+  
+  function addCityFromInput() {
+    const cityName = document.getElementById('newCityName').value.trim();
+    if (cityName) {
+      addCity(cityName);
+      document.getElementById('newCityName').value = ''; // Clear input field after adding
+    }
+  }
+  
+  function addCity(cityName) {
     const city = { name: cityName, count: 0, highestCount: 0 };
     const cities = JSON.parse(localStorage.getItem('cities')) || [];
     cities.push(city);
     localStorage.setItem('cities', JSON.stringify(cities));
     loadCities();
-}
-
-function createCityElement(city) {
+  }
+  
+  function createCityElement(city) {
     const div = document.createElement('div');
     div.className = 'city';
     div.innerHTML = `
-        <span>[${city.highestCount}] ${city.name}</span>
-        <button onclick="incrementCount('${city.name}')">+</button>
-        <span>${city.count}</span>
-        <button onclick="decrementCount('${city.name}')">-</button>
-        <button onclick="resetCount('${city.name}')">Reset Count</button>
-        <button onclick="resetHighestCount('${city.name}')">Reset Highest</button>
-        <button onclick="deleteCity('${city.name}')">Delete</button>
+      <span>${city.name} [Highest: ${city.highestCount}]</span>
+      <button onclick="incrementCount('${city.name}')">+</button>
+      <span id="count-${city.name}">${city.count}</span>
+      <button onclick="decrementCount('${city.name}')">-</button>
+      <button onclick="resetCount('${city.name}')">Reset Count</button>
+      <button onclick="resetHighestCount('${city.name}')">Reset Highest</button>
+      <button onclick="deleteCity('${city.name}')">Delete</button>
     `;
     return div;
-}
-
-function findCityIndex(cities, cityName) {
-    return cities.findIndex(city => city.name === cityName);
-}
-
-function incrementCount(cityName) {
-    updateCity(cityName, (city) => {
-        city.count++;
-        city.highestCount = Math.max(city.count, city.highestCount);
-    });
-}
-
-function decrementCount(cityName) {
-    updateCity(cityName, (city) => {
-        city.count--;
-    });
-}
-
-function resetCount(cityName) {
-    updateCity(cityName, (city) => {
-        city.count = 0;
-    });
-}
-
-function resetHighestCount(cityName) {
-    updateCity(cityName, (city) => {
-        city.highestCount = city.count;
-    });
-}
-
-function deleteCity(cityName) {
-    let cities = JSON.parse(localStorage.getItem('cities')) || [];
-    cities = cities.filter(city => city.name !== cityName);
-    localStorage.setItem('cities', JSON.stringify(cities));
-    loadCities();
-}
-
-function updateCity(cityName, updateFunc) {
+  }
+  
+  function incrementCount(cityName) {
+    updateCity(cityName, city => city.count++, city => city.highestCount = Math.max(city.count, city.highestCount));
+  }
+  
+  function decrementCount(cityName) {
+    updateCity(cityName, city => city.count > 0 ? city.count-- : 0);
+  }
+  
+  function resetCount(cityName) {
+    updateCity(cityName, city => city.count = 0);
+  }
+  
+  function resetHighestCount(cityName) {
+    updateCity(cityName, city => city.highestCount = city.count);
+  }
+  
+  function deleteCity(cityName) {
     const cities = JSON.parse(localStorage.getItem('cities')) || [];
-    const index = findCityIndex(cities, cityName);
+    const updatedCities = cities.filter(city => city.name !== cityName);
+    localStorage.setItem('cities', JSON.stringify(updatedCities));
+    loadCities();
+  }
+  
+  function updateCity(cityName, updateFunc) {
+    const cities = JSON.parse(localStorage.getItem('cities')) || [];
+    const index = cities.findIndex(city => city.name === cityName);
     if (index > -1) {
-        updateFunc(cities[index]);
-        localStorage.setItem('cities', JSON.stringify(cities));
-        loadCities();
+      updateFunc(cities[index]);
+      localStorage.setItem('cities', JSON.stringify(cities));
+      loadCities();
     }
-}
+  }
+  

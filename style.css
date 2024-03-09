@@ -1,21 +1,78 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-    padding: 0;
-    background-color: #f4f4f4;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 20px;
+    background: linear-gradient(135deg, #e2e2e2 0%, #c9d6ff 100%);
+    color: #333;
 }
 
 #app {
-    background: white;
+    background: rgba(255, 255, 255, 0.8);
     padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+    max-width: 600px;
+    margin: auto;
+}
+
+h1 {
+    font-size: 2em;
+    color: #333;
+    text-align: center;
+    font-weight: bold;
 }
 
 .city {
-    margin-bottom: 10px;
+    background: #f9f9f9;
+    margin-bottom: 15px;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.1), 
+                inset -2px -2px 5px rgba(255, 255, 255, 0.7);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.city span, .city button {
+    font-size: 1.2em;
+    margin: 0 5px;
 }
 
 button {
-    margin-left: 5px;
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+@media (max-width: 768px) {
+    body, #app {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 1.5em;
+    }
+
+    .city span, .city button {
+        font-size: 1em;
+    }
+
+    button {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
 }
