@@ -37,6 +37,7 @@ h1 {
 .cityinstance {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
 }
 
 .city span, .city button {

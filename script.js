@@ -36,15 +36,15 @@ document.addEventListener('DOMContentLoaded', () => {
     div.innerHTML = `
       <div class= cityinstance>
           <span>${city.name}</span>
-          <span>[Highest: ${city.highestCount}]</span>
+          <span>[Max Aantal: ${city.highestCount}]</span>
       </div>
       <div>
           <button onclick="decrementCount('${city.name}')">-</button>
           <span id="count-${city.name}">${city.count}</span>
           <button onclick="incrementCount('${city.name}')">+</button>
-          <button onclick="resetCount('${city.name}')">Reset Count</button>
-          <button onclick="resetHighestCount('${city.name}')">Reset Highest</button>
-          <button onclick="deleteCity('${city.name.replace("'", "\\'")}')">Delete</button>
+          <button onclick="resetCount('${city.name}')">Reset Getrokken</button>
+          <button onclick="resetHighestCount('${city.name}')">Reset Max Aantal</button>
+          <button onclick="deleteCity('${city.name.replace("'", "\\'")}')">Verwijder</button>
       </div>
     `;
     return div;
