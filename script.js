@@ -17,6 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (cityName) {
       addCity(cityName);
       document.getElementById('newCityName').value = ''; // Clear input field after adding
+    } else {
+      alert("Please enter a city name."); // Ensure user provides a city name
     }
   }
   
@@ -32,19 +34,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const div = document.createElement('div');
     div.className = 'city';
     div.innerHTML = `
-      <span>${city.name} [Highest: ${city.highestCount}]</span>
-      <button onclick="incrementCount('${city.name}')">+</button>
-      <span id="count-${city.name}">${city.count}</span>
-      <button onclick="decrementCount('${city.name}')">-</button>
-      <button onclick="resetCount('${city.name}')">Reset Count</button>
-      <button onclick="resetHighestCount('${city.name}')">Reset Highest</button>
-      <button onclick="deleteCity('${city.name}')">Delete</button>
+      <div>
+          <span>${city.name}</span>
+          <span>[Highest: ${city.highestCount}]</span>
+      </div>
+      <div>
+          <button onclick="incrementCount('${city.name}')">+</button>
+          <span id="count-${city.name}">${city.count}</span>
+          <button onclick="decrementCount('${city.name}')">-</button>
+          <button onclick="resetCount('${city.name}')">Reset Count</button>
+          <button onclick="resetHighestCount('${city.name}')">Reset Highest</button>
+          <button onclick="deleteCity('${city.name.replace("'", "\\'")}')">Delete</button>
+      </div>
     `;
     return div;
   }
   
   function incrementCount(cityName) {
-    updateCity(cityName, city => city.count++, city => city.highestCount = Math.max(city.count, city.highestCount));
+    updateCity(cityName, city => {
+      city.count++;
+      city.highestCount = Math.max(city.count, city.highestCount);
+    });
   }
   
   function decrementCount(cityName) {
