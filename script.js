@@ -34,14 +34,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const div = document.createElement('div');
     div.className = 'city';
     div.innerHTML = `
-      <div>
+      <div class= cityinstance>
           <span>${city.name}</span>
           <span>[Highest: ${city.highestCount}]</span>
       </div>
       <div>
-          <button onclick="incrementCount('${city.name}')">+</button>
-          <span id="count-${city.name}">${city.count}</span>
           <button onclick="decrementCount('${city.name}')">-</button>
+          <span id="count-${city.name}">${city.count}</span>
+          <button onclick="incrementCount('${city.name}')">+</button>
           <button onclick="resetCount('${city.name}')">Reset Count</button>
           <button onclick="resetHighestCount('${city.name}')">Reset Highest</button>
           <button onclick="deleteCity('${city.name.replace("'", "\\'")}')">Delete</button>
