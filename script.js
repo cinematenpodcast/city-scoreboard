@@ -44,7 +44,8 @@ document.addEventListener('DOMContentLoaded', () => {
           <button onclick="incrementCount('${city.name}')">+</button>
           <button onclick="resetCount('${city.name}')">Reset Getrokken</button>
           <button onclick="resetHighestCount('${city.name}')">Reset Max Aantal</button>
-          <button onclick="deleteCity('${city.name.replace("'", "\\'")}')">Verwijder</button>
+          <button onclick="deleteCity('${city.name ? city.name.replace("'", "\\'") : ''}')">Verwijder</button>
+
       </div>
     `;
     return div;
