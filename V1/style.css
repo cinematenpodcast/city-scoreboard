@@ -23,16 +23,18 @@ h1 {
 }
 
 .city {
-    border: 1px solid #ddd;
-    margin-bottom: 5px;
-    padding: 10px;
-    border-radius: 5px;
+    background: #f9f9f9;
+    margin-bottom: 15px;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.1), 
+                inset -2px -2px 5px rgba(255, 255, 255, 0.7);
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.city-instance {
+.cityinstance {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -44,7 +46,7 @@ h1 {
 }
 
 button {
-    background-color: #6f6f6f; /* Green */
+    background-color: #4CAF50; /* Green */
     border: none;
     color: white;
     padding: 15px 32px;
@@ -59,11 +61,7 @@ button {
 }
 
 button:hover {
-    background-color: #818181;
-}
-
-#deletebutton {
-    background-color: #d6d6d6;
+    background-color: #45a049;
 }
 
 @media (max-width: 768px) {
@@ -83,25 +81,4 @@ button:hover {
         padding: 10px 20px;
         font-size: 14px;
     }
-}
-
-
-.city[data-max-amount="0"] {
-    background-color: #f9f9f9;
-}
-
-.city[data-max-amount="1"] {
-    background-color: #ffd669;
-}
-
-.city[data-max-amount="2"], .city[data-max-amount="3"] {
-    background-color: #ffbebe; /* Intermediate color */
-}
-
-.city[data-max-amount="4"] {
-    background-color: #ff9a9a;
-}
-
-#controlPanel {
-    margin-bottom: 20px;
 }
