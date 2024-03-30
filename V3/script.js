@@ -125,20 +125,3 @@ function updateBackgroundColor(element, city) {
   }
   element.style.backgroundColor = color;
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-  // Je bestaande code...
-  
-  const confirmButtons = document.querySelectorAll('.confirm-btn');
-  let confirmCount = 0;
-  
-  confirmButtons.forEach(button => {
-      button.addEventListener('click', () => {
-          button.disabled = true;
-          confirmCount++;
-          if (confirmCount === 3) {
-              document.getElementById('warningPopup').style.display = 'none';
-          }
-      });
-  });
-});

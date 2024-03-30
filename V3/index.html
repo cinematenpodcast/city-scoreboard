@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light">
+    <title>Infectiestapel Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <section class="app-section">
+        <div id="app">
+            <h1>INFECTIESTAPEL TRACKER</h1>
+            <div id="controlPanel">
+                <button id="resetAllDrawnBtn" class="epidemic-button"><img id=ep-button src="ep-button.jpg"></button>
+                <button id="resetAllMaxBtn">Reset Spel</button>
+            </div>
+            <div id="addCityForm">
+                <input type="text" id="newCityName" placeholder="Stadsnaam" />
+                <button id="addCityBtn">Voeg Toe</button>
+            </div>
+            <div id="cityList"></div>
+        </div>
+    </section>
+    <script src="script.js"></script>
+</body>
+</html>
