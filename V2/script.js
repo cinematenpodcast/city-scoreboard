@@ -105,17 +105,15 @@ function updateAllCities(updateFunc) {
 }
 
 function updateBackgroundColor(element, city) {
-  const ratio = city.highestCount > 0 ? city.count / city.highestCount : 0;
-  let color;
-  if (ratio === 1) {
-    color = "#9aff9f"; // Green when max and count are the same
-  } else if (ratio >= 0.75) {
-    color = "#ffd669"; // Yellow for 3/4
-  } else if (ratio >= 0.5) {
-    color = "#ffa340"; // Orange for 1/2
-  } else {
-    color = "#ff9a9a"; // Red for less than 1/2
+  if (city.highestCount > 1 && city.highestCount === city.count) {
+      element.style.backgroundColor = "#9aff9f"; // Green when max and count are the same, and more than 1
+  } else if (city.highestCount === 0) {
+      element.style.backgroundColor = "#f9f9f9"; // White
+  } else if (city.highestCount === 1) {
+      element.style.backgroundColor = "#ffd669"; // Yellow
+  } else if (city.highestCount === 2 || city.highestCount === 3) {
+      element.style.backgroundColor = "#ffa340"; // Light Red
+  } else if (city.highestCount >= 4) {
+      element.style.backgroundColor = "#ff9a9a"; // Red
   }
-  element.style.backgroundColor = color;
 }
-
