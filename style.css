@@ -20,6 +20,7 @@ html, body {
     padding: 0;
     background-image: url('BG_image.jpg');
     background-position: center center;
+    background-size: cover;
     background-repeat: no-repeat;
 }
 
