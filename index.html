@@ -8,18 +8,20 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="app">
-        <h1>Infectiestapel tracker</h1>
-        <div id="controlPanel">
-            <button id="resetAllDrawnBtn" class="epidemic-button"><img id=ep-button src="ep-button.jpg"></button>
-            <button id="resetAllMaxBtn">Reset Game</button>
+    <section class="app-section">
+        <div id="app">
+            <h1>Infectiestapel tracker</h1>
+            <div id="controlPanel">
+                <button id="resetAllDrawnBtn" class="epidemic-button"><img id=ep-button src="ep-button.jpg"></button>
+                <button id="resetAllMaxBtn">Reset Game</button>
+            </div>
+            <div id="addCityForm">
+                <input type="text" id="newCityName" placeholder="Stadsnaam" />
+                <button id="addCityBtn">Voeg Toe</button>
+            </div>
+            <div id="cityList"></div>
         </div>
-        <div id="addCityForm">
-            <input type="text" id="newCityName" placeholder="Stadsnaam" />
-            <button id="addCityBtn">Voeg Toe</button>
-        </div>
-        <div id="cityList"></div>
-    </div>
+    </section>
     <script src="script.js"></script>
 </body>
 </html>
