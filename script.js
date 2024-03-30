@@ -77,7 +77,10 @@ function resetAllDrawn() {
 }
 
 function resetAllMaxAmounts() {
-  updateAllCities(city => city.highestCount = 0);
+  updateAllCities(city => {
+      city.highestCount = 0;
+      city.count = 0; // Reset the drawn count for each city
+  });
 }
 
 function deleteCity(cityName) {
