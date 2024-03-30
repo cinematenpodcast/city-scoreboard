@@ -13,15 +13,20 @@ body {
     font-family: 'Gunplay';
     padding: 20px;
     color: #333;
-
-        background-image: url('BG_image.jpg');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        height: 100vh; /* This makes sure that the body takes at least the full height of the viewport */
-        margin: 0; /* This can help remove any default margins that might cause scrollbars */
-    
 }
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    margin-top: 20px;
+    padding: 0;
+    background-image: url('BG_image.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
 
 #app {
     background: rgba(255, 248, 199, 0.8);
