@@ -63,13 +63,13 @@ h1 {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    min-width: 135px;
+    min-width: 100px;
 }
 
 .buttondiv {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px; /* This creates space between items both horizontally and vertically */
+    row-gap: 10px; /* This creates space between items both horizontally and vertically */
 }
 
 .buttondiv button {
@@ -93,7 +93,7 @@ button {
     cursor: pointer;
     border-radius: 10px;
     transition: background-color 0.3s ease;
-    padding: 10px 20px; /* Smaller padding */
+    padding: 10px 15px; /* Smaller padding */
     font-size: 16px; /* Smaller font size */
     margin: 5px; /* Increase gap space */
 }

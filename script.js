@@ -56,8 +56,8 @@ function createCityElement(city) {
           <button onclick="decrementCount('${city.name}')">-</button>
           <span id="count-${city.name}">${city.count}</span>
           <button onclick="incrementCount('${city.name}')">+</button>
-          <button onclick="resetCount('${city.name}')">Reset Getrokken</button>
-          <button onclick="resetHighestCount('${city.name}')">Reset Max Aantal</button>
+          <button onclick="resetCount('${city.name}')">⟲ Drawn</button>
+          <button onclick="resetHighestCount('${city.name}')">⟲ Max</button>
           <button onclick="deleteCity('${city.name.replace("'", "\\'")}')">🗑️</button>
       </div>
   `;
