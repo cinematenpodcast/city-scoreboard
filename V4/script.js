@@ -1,13 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
   loadCities();
   document.getElementById('addCityBtn').addEventListener('click', addCityFromInput);
-  document.getElementById('resetAllDrawnBtn').addEventListener('click', showCitySelectPopup); // Modified to show the pop-up
+  document.getElementById('resetAllDrawnBtn').addEventListener('click', resetAllDrawn);
   document.getElementById('resetAllMaxBtn').addEventListener('click', resetAllMaxAmounts);
-
-  // Event listeners for confirm buttons (assuming you still need these)
-  document.querySelectorAll('.confirm-btn').forEach(button => {
-      button.addEventListener('click', handleConfirm);
-  });
 });
 
 function loadCities() {
@@ -47,28 +42,11 @@ function createCityElement(city) {
           <button onclick="incrementCount('${city.name}')">+</button>
           <button onclick="resetCount('${city.name}')">Reset Getrokken</button>
           <button onclick="resetHighestCount('${city.name}')">Reset Max Aantal</button>
-          <button onclick="deleteCity('${city.name.replace("'", "\\'")}')">🗑️</button>
+          <button id="deletebutton" onclick="deleteCity('${city.name.replace("'", "\\'")}')">🗑️</button>
       </div>
   `;
   updateBackgroundColor(div, city);
   return div;
-}
-
-function updateCity(cityName, updateFunc) {
-  const cities = JSON.parse(localStorage.getItem('cities')) || [];
-  const city = cities.find(city => city.name === cityName);
-  if (city) {
-      updateFunc(city);
-      localStorage.setItem('cities', JSON.stringify(cities));
-      loadCities();
-  }
-}
-
-function updateAllCities(updateFunc) {
-  const cities = JSON.parse(localStorage.getItem('cities')) || [];
-  cities.forEach(updateFunc);
-  localStorage.setItem('cities', JSON.stringify(cities));
-  loadCities();
 }
 
 function incrementCount(cityName) {
@@ -94,6 +72,17 @@ function resetHighestCount(cityName) {
   updateCity(cityName, city => city.highestCount = 0);
 }
 
+function resetAllDrawn() {
+  updateAllCities(city => city.count = 0);
+}
+
+function resetAllMaxAmounts() {
+  updateAllCities(city => {
+      city.highestCount = 0;
+      city.count = 0; // Reset the drawn count for each city
+  });
+}
+
 function deleteCity(cityName) {
   const cities = JSON.parse(localStorage.getItem('cities')) || [];
   const updatedCities = cities.filter(city => city.name !== cityName);
@@ -101,25 +90,21 @@ function deleteCity(cityName) {
   loadCities();
 }
 
-function showCitySelectPopup() {
-  const citySelectPopup = document.getElementById('citySelectPopup');
-  const cityButtonsContainer = document.getElementById('cityButtonsContainer');
-  cityButtonsContainer.innerHTML = '';
+function updateCity(cityName, updateFunc) {
   const cities = JSON.parse(localStorage.getItem('cities')) || [];
-  cities.forEach(city => {
-    const button = document.createElement('button');
-    button.textContent = city.name;
-    button.addEventListener('click', () => incrementMaxCounterAndHidePopup(city.name));
-    cityButtonsContainer.appendChild(button);
-  });
-  citySelectPopup.style.display = 'flex';
+  const city = cities.find(city => city.name === cityName);
+  if (city) {
+      updateFunc(city);
+      localStorage.setItem('cities', JSON.stringify(cities));
+      loadCities();
+  }
 }
 
-function incrementMaxCounterAndHidePopup(cityName) {
-  updateCity(cityName, city => {
-    city.highestCount++;
-  });
-  document.getElementById('citySelectPopup').style.display = 'none';
+function updateAllCities(updateFunc) {
+  const cities = JSON.parse(localStorage.getItem('cities')) || [];
+  cities.forEach(updateFunc);
+  localStorage.setItem('cities', JSON.stringify(cities));
+  loadCities();
 }
 
 function updateBackgroundColor(element, city) {
@@ -142,7 +127,8 @@ function updateBackgroundColor(element, city) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-
+  // Je bestaande code...
+  
   const confirmButtons = document.querySelectorAll('.confirm-btn');
   let confirmCount = 0;
   

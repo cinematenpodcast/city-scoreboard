@@ -214,27 +214,3 @@ background-color: transparent;
     cursor: default;
 }
 
-.city-select-popup {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    display: none;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-  }
-  
-  .city-buttons-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-    gap: 10px;
-    padding: 20px;
-    background: #fff8c7;
-    border-radius: 10px;
-    max-width: 55vw;
-    max-height: 80vh;
-    overflow-y: auto; /* Allows scrolling if there are many cities */
-  }
-  
