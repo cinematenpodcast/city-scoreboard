@@ -50,9 +50,9 @@ function createCityElement(city) {
   div.innerHTML = `
       <div class="city-instance">
           <span>${city.name}</span>
-          <span>[Max: ${city.highestCount}]</span>
+          <span>[Max Aantal: ${city.highestCount}]</span>
       </div>
-      <div class="buttondiv">
+      <div>
           <button onclick="decrementCount('${city.name}')">-</button>
           <span id="count-${city.name}">${city.count}</span>
           <button onclick="incrementCount('${city.name}')">+</button>

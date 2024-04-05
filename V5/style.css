@@ -33,16 +33,16 @@ html, body {
     background: #fff8c7cc;
     padding-top: 10px !important;
     margin-top: 0px;
-    padding: 20px;
+    padding: 40px;
     border-radius: 10px;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
-    max-width: 1200px;
+    max-width: 1000px;
     margin: auto;
 }
 
 h1 {
     font-family: 'Gunplay';
-    font-size: 2.5em;
+    font-size: 3em;
     color: #7c5300;
     text-align: center;
     font-weight: bold;
@@ -63,22 +63,10 @@ h1 {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    min-width: 135px;
 }
-
-.buttondiv {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px; /* This creates space between items both horizontally and vertically */
-}
-
-.buttondiv button {
-    margin-bottom: 10px; /* This ensures space between rows */
-}
-
 
 .city span, .city button {
-    font-size: 1.2em;
+    font-size: 1.4em;
     margin: 0 5px;
 }
 
@@ -86,16 +74,16 @@ button {
     background-color: #9d6900; /* Green */
     border: none;
     color: white;
+    padding: 15px 32px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-family: 'Gunplay';
+    font-size: 18px;
+    margin: 4px 2px;
     cursor: pointer;
     border-radius: 10px;
     transition: background-color 0.3s ease;
-    padding: 10px 20px; /* Smaller padding */
-    font-size: 16px; /* Smaller font size */
-    margin: 5px; /* Increase gap space */
 }
 
 button:hover {
@@ -267,25 +255,3 @@ background-color: transparent;
     max-width: 100%; /* Ensure the container does not overflow */
   }
   
-  #cityList {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Create 2 columns of equal width */
-    gap: 20px; /* Space between grid items */
-    padding: 10px; /* Padding around the entire grid */
-    max-height: 80vh; /* Adjust based on your preference */
-    overflow-y: auto; /* Enable vertical scrolling if content exceeds max-height */
-  }
-
-  @media (max-width: 1024px) {
-    #app {
-        max-width: 95%; /* Use percentage for better responsiveness */
-    }
-
-    button, .city span, .city button {
-        font-size: smaller; /* Adjust font sizes for smaller screens */
-    }
-
-    #cityList {
-        grid-template-columns: repeat(2, 1fr); /* Adjust if needed based on actual device testing */
-    }
-}
