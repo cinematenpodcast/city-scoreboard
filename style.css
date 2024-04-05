@@ -238,3 +238,20 @@ background-color: transparent;
     overflow-y: auto; /* Allows scrolling if there are many cities */
   }
   
+
+.city-button {
+    text-align: center;
+    padding: 10px 20px; /* Adequate padding for readability */
+    margin: 5px; /* Space between buttons */
+    border: 1px solid #ccc; /* A simple border */
+    background-color: #f0f0f0; /* A light background */
+    cursor: pointer; /* Cursor indication for clickable items */
+  }
+  
+  #cityButtonsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Center buttons horizontally */
+    max-width: 100%; /* Ensure the container does not overflow */
+  }
+  

@@ -1,12 +1,23 @@
 document.addEventListener('DOMContentLoaded', () => {
   loadCities();
   document.getElementById('addCityBtn').addEventListener('click', addCityFromInput);
-  document.getElementById('resetAllDrawnBtn').addEventListener('click', showCitySelectPopup); // Modified to show the pop-up
+  document.getElementById('resetAllDrawnBtn').addEventListener('click', () => {
+    resetAllDrawn();
+    showCitySelectPopup(); // Show city select popup when Epidemic button is clicked
+  });
   document.getElementById('resetAllMaxBtn').addEventListener('click', resetAllMaxAmounts);
 
-  // Event listeners for confirm buttons (assuming you still need these)
-  document.querySelectorAll('.confirm-btn').forEach(button => {
-      button.addEventListener('click', handleConfirm);
+  const confirmButtons = document.querySelectorAll('.confirm-btn');
+  let confirmCount = 0;
+
+  confirmButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      button.disabled = true;
+      confirmCount++;
+      if (confirmCount === 3) {
+        document.getElementById('warningPopup').style.display = 'none';
+      }
+    });
   });
 });
 
@@ -15,21 +26,21 @@ function loadCities() {
   const cityList = document.getElementById('cityList');
   cityList.innerHTML = '';
   cities.forEach(city => {
-      cityList.appendChild(createCityElement(city));
+    cityList.appendChild(createCityElement(city));
   });
 }
 
 function addCityFromInput() {
   const cityName = document.getElementById('newCityName').value.trim();
   if (cityName) {
-      const city = { name: cityName, count: 0, highestCount: 0 };
-      const cities = JSON.parse(localStorage.getItem('cities')) || [];
-      cities.push(city);
-      localStorage.setItem('cities', JSON.stringify(cities));
-      loadCities();
-      document.getElementById('newCityName').value = '';
+    const city = { name: cityName, count: 0, highestCount: 0 };
+    const cities = JSON.parse(localStorage.getItem('cities')) || [];
+    cities.push(city);
+    localStorage.setItem('cities', JSON.stringify(cities));
+    loadCities();
+    document.getElementById('newCityName').value = '';
   } else {
-      alert("Voer a.u.b. een stadsnaam in.");
+    alert("Voer a.u.b. een stadsnaam in.");
   }
 }
 
@@ -54,53 +65,6 @@ function createCityElement(city) {
   return div;
 }
 
-function updateCity(cityName, updateFunc) {
-  const cities = JSON.parse(localStorage.getItem('cities')) || [];
-  const city = cities.find(city => city.name === cityName);
-  if (city) {
-      updateFunc(city);
-      localStorage.setItem('cities', JSON.stringify(cities));
-      loadCities();
-  }
-}
-
-function updateAllCities(updateFunc) {
-  const cities = JSON.parse(localStorage.getItem('cities')) || [];
-  cities.forEach(updateFunc);
-  localStorage.setItem('cities', JSON.stringify(cities));
-  loadCities();
-}
-
-function incrementCount(cityName) {
-  updateCity(cityName, city => {
-      city.count++;
-      if (city.count > city.highestCount) {
-          city.highestCount = city.count;
-      }
-  });
-}
-
-function decrementCount(cityName) {
-  updateCity(cityName, city => {
-      if (city.count > 0) city.count--;
-  });
-}
-
-function resetCount(cityName) {
-  updateCity(cityName, city => city.count = 0);
-}
-
-function resetHighestCount(cityName) {
-  updateCity(cityName, city => city.highestCount = 0);
-}
-
-function deleteCity(cityName) {
-  const cities = JSON.parse(localStorage.getItem('cities')) || [];
-  const updatedCities = cities.filter(city => city.name !== cityName);
-  localStorage.setItem('cities', JSON.stringify(updatedCities));
-  loadCities();
-}
-
 function showCitySelectPopup() {
   const citySelectPopup = document.getElementById('citySelectPopup');
   const cityButtonsContainer = document.getElementById('cityButtonsContainer');
@@ -120,6 +84,64 @@ function incrementMaxCounterAndHidePopup(cityName) {
     city.highestCount++;
   });
   document.getElementById('citySelectPopup').style.display = 'none';
+}
+
+function incrementCount(cityName) {
+  updateCity(cityName, city => {
+    city.count++;
+    if (city.count > city.highestCount) {
+      city.highestCount = city.count;
+    }
+  });
+}
+
+function decrementCount(cityName) {
+  updateCity(cityName, city => {
+    if (city.count > 0) city.count--;
+  });
+}
+
+function resetCount(cityName) {
+  updateCity(cityName, city => city.count = 0);
+}
+
+function resetHighestCount(cityName) {
+  updateCity(cityName, city => city.highestCount = 0);
+}
+
+function resetAllDrawn() {
+  updateAllCities(city => city.count = 0);
+}
+
+function resetAllMaxAmounts() {
+  updateAllCities(city => {
+    city.highestCount = 0;
+    city.count = 0; // Reset the drawn count for each city
+  });
+}
+
+function deleteCity(cityName) {
+  const cities = JSON.parse(localStorage.getItem('cities')) || [];
+  const updatedCities = cities.filter(city => city.name !== cityName);
+  localStorage.setItem('cities', JSON.stringify(updatedCities));
+  loadCities();
+}
+
+function updateCity(cityName, updateFunc) {
+  const cities = JSON.parse(localStorage.getItem('cities')) || [];
+  const city = cities.find(city => city.name === cityName);
+  if (city) {
+      updateFunc(city);
+      localStorage.setItem('cities', JSON.stringify(cities));
+      loadCities();
+  }
+}
+
+function updateAllCities(updateFunc) {
+  const cities = JSON.parse(localStorage.getItem('cities')) || [];
+  cities.forEach(updateFunc);
+  localStorage.setItem('cities', JSON.stringify(cities));
+  loadCities();
 }
 
 function updateBackgroundColor(element, city) {
@@ -142,7 +164,8 @@ function updateBackgroundColor(element, city) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-
+  // Je bestaande code...
+  
   const confirmButtons = document.querySelectorAll('.confirm-btn');
   let confirmCount = 0;
   
