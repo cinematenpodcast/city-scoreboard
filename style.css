@@ -272,7 +272,7 @@ background-color: transparent;
     display: flex;
     flex-wrap: wrap;
     justify-content: center; /* Center buttons horizontally */
-    max-width: 100%; /* Ensure the container does not overflow */
+    max-width: 60%; /* Ensure the container does not overflow */
   }
   
   #cityList {
@@ -296,4 +296,9 @@ background-color: transparent;
     #cityList {
         grid-template-columns: repeat(2, 1fr); /* Adjust if needed based on actual device testing */
     }
+}
+
+.count-number {
+    display: flex;
+    align-items: center;
 }

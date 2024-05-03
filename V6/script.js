@@ -1,12 +1,22 @@
+// Wait for the DOM content to be loaded before executing the script
 document.addEventListener('DOMContentLoaded', () => {
+  // Call the function to load cities when the DOM content is loaded
   loadCities();
+
+  // Add event listener to the "Add City" button
   document.getElementById('addCityBtn').addEventListener('click', addCityFromInput);
+
+  // Add event listener to the "Reset All Drawn" button
   document.getElementById('resetAllDrawnBtn').addEventListener('click', () => {
+    // Reset all drawn counts and show city select popup
     resetAllDrawn();
-    showCitySelectPopup(); // Show city select popup when Epidemic button is clicked
+    showCitySelectPopup();
   });
+
+  // Add event listener to the "Reset All Max" button
   document.getElementById('resetAllMaxBtn').addEventListener('click', resetAllMaxAmounts);
 
+  // Add event listener to each confirmation button
   const confirmButtons = document.querySelectorAll('.confirm-btn');
   let confirmCount = 0;
 
@@ -14,13 +24,15 @@ document.addEventListener('DOMContentLoaded', () => {
     button.addEventListener('click', () => {
       button.disabled = true;
       confirmCount++;
+      // Hide warning popup when the confirm count reaches 3
       if (confirmCount === 3) {
-        document.getElementById('warningPopup').style.display = 'none';
+        //document.getElementById('warningPopup').style.display = 'none';
       }
     });
   });
 });
 
+// Function to load cities from local storage
 function loadCities() {
   const cities = JSON.parse(localStorage.getItem('cities')) || [];
   const cityList = document.getElementById('cityList');
@@ -30,6 +42,7 @@ function loadCities() {
   });
 }
 
+// Function to add a new city from input
 function addCityFromInput() {
   const cityName = document.getElementById('newCityName').value.trim();
   if (cityName) {
@@ -40,24 +53,25 @@ function addCityFromInput() {
     loadCities();
     document.getElementById('newCityName').value = '';
   } else {
-    alert("Voer a.u.b. een stadsnaam in.");
+    alert("Please enter a city name.");
   }
 }
 
+// Function to create HTML element for a city
 function createCityElement(city) {
   const div = document.createElement('div');
   div.className = 'city';
   div.innerHTML = `
       <div class="city-instance">
           <span>${city.name}</span>
-          <span>[Max Aantal: ${city.highestCount}]</span>
+          <span>[Max: ${city.highestCount}]</span>
       </div>
-      <div>
+      <div class="buttondiv">
           <button onclick="decrementCount('${city.name}')">-</button>
-          <span id="count-${city.name}">${city.count}</span>
+          <span class="count-number" id="count-${city.name}">${city.count}</span>
           <button onclick="incrementCount('${city.name}')">+</button>
-          <button onclick="resetCount('${city.name}')">Reset Getrokken</button>
-          <button onclick="resetHighestCount('${city.name}')">Reset Max Aantal</button>
+          <button onclick="resetCount('${city.name}')">⟲ Drawn</button>
+          <button onclick="resetHighestCount('${city.name}')">⟲ Max</button>
           <button onclick="deleteCity('${city.name.replace("'", "\\'")}')">🗑️</button>
       </div>
   `;
@@ -65,6 +79,7 @@ function createCityElement(city) {
   return div;
 }
 
+// Function to show city selection popup
 function showCitySelectPopup() {
   const citySelectPopup = document.getElementById('citySelectPopup');
   const cityButtonsContainer = document.getElementById('cityButtonsContainer');
@@ -79,6 +94,7 @@ function showCitySelectPopup() {
   citySelectPopup.style.display = 'flex';
 }
 
+// Function to increment max count for a city and hide popup
 function incrementMaxCounterAndHidePopup(cityName) {
   updateCity(cityName, city => {
     city.highestCount++;
@@ -86,6 +102,7 @@ function incrementMaxCounterAndHidePopup(cityName) {
   document.getElementById('citySelectPopup').style.display = 'none';
 }
 
+// Function to increment count for a city
 function incrementCount(cityName) {
   updateCity(cityName, city => {
     city.count++;
@@ -95,31 +112,37 @@ function incrementCount(cityName) {
   });
 }
 
+// Function to decrement count for a city
 function decrementCount(cityName) {
   updateCity(cityName, city => {
     if (city.count > 0) city.count--;
   });
 }
 
+// Function to reset count for a city
 function resetCount(cityName) {
   updateCity(cityName, city => city.count = 0);
 }
 
+// Function to reset highest count for a city
 function resetHighestCount(cityName) {
   updateCity(cityName, city => city.highestCount = 0);
 }
 
+// Function to reset all drawn counts for all cities
 function resetAllDrawn() {
   updateAllCities(city => city.count = 0);
 }
 
+// Function to reset all max counts and drawn counts for all cities
 function resetAllMaxAmounts() {
   updateAllCities(city => {
     city.highestCount = 0;
-    city.count = 0; // Reset the drawn count for each city
+    city.count = 0;
   });
 }
 
+// Function to delete a city
 function deleteCity(cityName) {
   const cities = JSON.parse(localStorage.getItem('cities')) || [];
   const updatedCities = cities.filter(city => city.name !== cityName);
@@ -127,6 +150,7 @@ function deleteCity(cityName) {
   loadCities();
 }
 
+// Function to update city data in local storage
 function updateCity(cityName, updateFunc) {
   const cities = JSON.parse(localStorage.getItem('cities')) || [];
   const city = cities.find(city => city.name === cityName);
@@ -137,6 +161,7 @@ function updateCity(cityName, updateFunc) {
   }
 }
 
+// Function to update all cities data in local storage
 function updateAllCities(updateFunc) {
   const cities = JSON.parse(localStorage.getItem('cities')) || [];
   cities.forEach(updateFunc);
@@ -144,6 +169,7 @@ function updateAllCities(updateFunc) {
   loadCities();
 }
 
+// Function to update background color based on count and highest count
 function updateBackgroundColor(element, city) {
   let color;
   if (city.count === 0 && city.highestCount === 0) {
@@ -163,19 +189,18 @@ function updateBackgroundColor(element, city) {
   element.style.backgroundColor = color;
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  // Je bestaande code...
-  
+// Commented out the block that hides the warning popup
+/*document.addEventListener('DOMContentLoaded', () => {
   const confirmButtons = document.querySelectorAll('.confirm-btn');
   let confirmCount = 0;
-  
+
   confirmButtons.forEach(button => {
-      button.addEventListener('click', () => {
-          button.disabled = true;
-          confirmCount++;
-          if (confirmCount === 3) {
-              document.getElementById('warningPopup').style.display = 'none';
-          }
-      });
+    button.addEventListener('click', () => {
+      button.disabled = true;
+      confirmCount++;
+      if (confirmCount === 3) {
+        document.getElementById('warningPopup').style.display = 'none';
+      }
+    });
   });
-});
+});*/
